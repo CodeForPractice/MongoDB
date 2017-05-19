@@ -1,4 +1,5 @@
 ﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
 
@@ -15,7 +16,6 @@ namespace Models
     {
         public Product()
         {
-
         }
 
         public Product(string name, decimal price) : this()
@@ -31,6 +31,7 @@ namespace Models
 
         public decimal? Price { get; set; }
 
+        [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         public DateTime CreateTime { get; set; }
 
         public List<ProductComment> Comments { get; set; }
