@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -58,5 +59,67 @@ namespace Common
         {
             Collection.InsertOne(entity);
         }
+
+        public Task InsertAsync(T entity)
+        {
+            return Collection.InsertOneAsync(entity);
+        }
+
+        public void InsertMany(List<T> entities)
+        {
+            Collection.InsertMany(entities);
+        }
+
+        public Task InsertManyAsync(List<T> entities)
+        {
+            return Collection.InsertManyAsync(entities);
+        }
+
+        public bool Update(Expression<Func<T, bool>> filter, IDictionary<string, object> updateDic)
+        {
+            if (updateDic == null)
+            {
+                throw new ArgumentNullException("updateDic");
+            }
+            UpdateDefinition<T> updateDefin = null;
+
+            foreach (var item in updateDic)
+            {
+                if (updateDefin == null)
+                {
+                    updateDefin = Builders<T>.Update.Set(item.Key, item.Value);
+                }
+                else
+                {
+                    updateDefin = updateDefin.Set(item.Key, item.Value);
+                }
+            }
+            var updateResult = Collection.UpdateOne(filter, updateDefin);
+            return updateResult.IsModifiedCountAvailable;
+        }
+
+        public async Task<bool> UpdateAsync(Expression<Func<T, bool>> filter, IDictionary<string, object> updateDic)
+        {
+            if (updateDic == null)
+            {
+                throw new ArgumentNullException("updateDic");
+            }
+            UpdateDefinition<T> updateDefin = null;
+
+            foreach (var item in updateDic)
+            {
+                if (updateDefin == null)
+                {
+                    updateDefin = Builders<T>.Update.Set(item.Key, item.Value);
+                }
+                else
+                {
+                    updateDefin = updateDefin.Set(item.Key, item.Value);
+                }
+            }
+            var updateResult = await Collection.UpdateOneAsync(filter, updateDefin);
+            return updateResult.IsModifiedCountAvailable;
+        }
+
     }
 }

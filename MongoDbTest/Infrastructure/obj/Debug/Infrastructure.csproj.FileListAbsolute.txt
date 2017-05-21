@@ -1,0 +1,4 @@
+F:\Code\CodeForPractice\MongoDB\MongoDbTest\Infrastructure\bin\Debug\Infrastructure.dll
+F:\Code\CodeForPractice\MongoDB\MongoDbTest\Infrastructure\bin\Debug\Infrastructure.pdb
+F:\Code\CodeForPractice\MongoDB\MongoDbTest\Infrastructure\obj\Debug\Infrastructure.dll
+F:\Code\CodeForPractice\MongoDB\MongoDbTest\Infrastructure\obj\Debug\Infrastructure.pdb
